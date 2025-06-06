@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Descuento de Producto</title>
+      <h1><center>Carolina Martinez </center></h1>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      color: #2c3e50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 35px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: box-shadow 0.3s ease;
+    }
+    .container:hover {
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+
+    header {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #34495e;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    .imagen img {
+      width: 100px;
+      margin-bottom: 25px;
+      transition: transform 0.4s ease;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: left;
+      color: #34495e;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 12px;
+      border: 2px solid #ddd;
+      outline: none;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+    input[type="number"]:focus {
+      border-color: #2980b9;
+      box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: #2980b9;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(41, 128, 185, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background-color: #1c5980;
+      box-shadow: 0 7px 20px rgba(28, 89, 128, 0.6);
+    }
+    button:active {
+      background-color: #145273;
+    }
+
+    #resultado {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #dff0fc;
+      border-left: 6px solid #2980b9;
+      font-weight: 600;
+      color: #34495e;
+      box-shadow: 0 3px 10px rgba(41, 128, 185, 0.2);
+      min-height: 80px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    #resultado.error {
+      background-color: #f8d7da;
+      border-left-color: #c0392b;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>Descuento por Precio</header>
+    <div class="imagen">
+      <img id="icono" src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Carrito" />
+    </div>
+
+    <label for="precio">Precio del artículo ($ MXN):</label>
+    <input type="number" id="precio" placeholder="Ej: 150" min="0" />
+
+    <button id="boton" onclick="calcularDescuento()">Calcular descuento</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function calcularDescuento() {
+      const precio = parseFloat(document.getElementById("precio").value);
+      const resultado = document.getElementById("resultado");
+      const img = document.getElementById("icono");
+      const btn = document.getElementById("boton");
+
+      if (isNaN(precio) || precio < 0) {
+        resultado.textContent = "Ingresa un precio válido.";
+        resultado.classList.add("error");
+        img.src = "https://cdn-icons-png.flaticon.com/512/753/753345.png";
+        img.alt = "Error";
+        img.style.transform = "scale(1)";
+        return;
+      }
+
+      resultado.classList.remove("error");
+
+      let descuento = 0;
+      if (precio >= 200) {
+        descuento = 0.15;
+      } else if (precio > 100) {
+        descuento = 0.12;
+      } else {
+        descuento = 0.10;
+      }
+
+      const montoDescuento = precio * descuento;
+      const precioFinal = precio - montoDescuento;
+
+      resultado.innerHTML = `
+        Descuento aplicado: <strong>${(descuento * 100).toFixed(0)}%</strong><br>
+        Monto de descuento: $${montoDescuento.toFixed(2)} MXN<br>
+        Precio final: <strong>$${precioFinal.toFixed(2)} MXN</strong>
+      `;
+
+      // Cambiar imagen y animar
+      img.src = "https://cdn-icons-png.flaticon.com/512/1170/1170630.png";
+      img.alt = "Carrito con descuento";
+      img.style.transform = "scale(1.15) rotate(-10deg)";
+      
+      // Animar botón
+      btn.style.backgroundColor = "#1c5980";
+      setTimeout(() => {
+        btn.style.backgroundColor = "#2980b9";
+      }, 300);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cálculo de Sueldo Semanal</title>
+      <h1><center>Carolina Martinez </center></h1>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #c8e6c9, #b2dfdb);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contenedor {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+    }
+
+    .contenedor img {
+      width: 90px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 5px;
+      text-align: left;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #388e3c;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #00695c;
+      min-height: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+    <img src="https://cdn-icons-png.flaticon.com/512/3468/3468339.png" alt="trabajador">
+    <h2>Calculadora de Sueldo Semanal</h2>
+
+    <label for="horas">Horas trabajadas:</label>
+    <input type="number" id="horas" min="0" max="50" placeholder="Ej: 42" />
+
+    <label for="pagoHora">Pago por hora ($):</label>
+    <input type="number" id="pagoHora" min="0" placeholder="Ej: 100" />
+
+    <button onclick="calcularSueldo()">Calcular sueldo</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <audio id="sonido">
+    <source src="https://www.fesliyanstudios.com/play-mp3/438" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function calcularSueldo() {
+      const horas = parseInt(document.getElementById("horas").value);
+      const pagoHora = parseFloat(document.getElementById("pagoHora").value);
+      const resultado = document.getElementById("resultado");
+      const sonido = document.getElementById("sonido");
+
+      if (isNaN(horas) || horas < 0 || horas > 50) {
+        resultado.textContent = "Ingresa horas válidas (0 a 50).";
+        resultado.style.color = "red";
+        return;
+      }
+
+      if (isNaN(pagoHora) || pagoHora <= 0) {
+        resultado.textContent = "Ingresa un pago por hora válido.";
+        resultado.style.color = "red";
+        return;
+      }
+
+      let sueldo = 0;
+
+      if (horas <= 40) {
+        sueldo = horas * pagoHora;
+      } else if (horas <= 45) {
+        sueldo = 40 * pagoHora + (horas - 40) * pagoHora * 2;
+      } else {
+        sueldo = 40 * pagoHora + 5 * pagoHora * 2 + (horas - 45) * pagoHora * 3;
+      }
+
+      resultado.style.color = "#00695c";
+      resultado.textContent = `Sueldo total: $${sueldo.toFixed(2)} MXN`;
+
+      sonido.play();
+    }
+  </script>
+</body>
+</html>

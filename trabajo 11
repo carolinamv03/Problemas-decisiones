@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bono por Antigüedad</title>
+      <h1><center>Carolina Martinez </center></h1>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #e0f7fa, #e1bee7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #6a1b9a;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #444;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #8e24aa;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #6a1b9a;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="https://cdn-icons-png.flaticon.com/512/943/943748.png" alt="Empleado feliz">
+    <h1>Calcular Bono</h1>
+
+    <label for="antiguedad">Años de antigüedad:</label>
+    <input type="number" id="antiguedad" min="0" placeholder="Ej: 3" />
+
+    <button onclick="calcularBono()">Obtener Bono</button>
+    <div id="resultado"></div>
+  </div>
+
+  <!-- Sonido de éxito -->
+  <audio id="sonidoBono">
+    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function calcularBono() {
+      const años = parseInt(document.getElementById("antiguedad").value);
+      const resultado = document.getElementById("resultado");
+      const sonido = document.getElementById("sonidoBono");
+
+      if (isNaN(años) || años < 0) {
+        resultado.textContent = "Por favor ingresa un número válido de años.";
+        resultado.style.color = "red";
+        return;
+      }
+
+      let bono = 0;
+      if (años >= 1 && años <= 5) {
+        bono = años * 100;
+      } else if (años > 5) {
+        bono = 1000;
+      } else {
+        bono = 0;
+      }
+
+      resultado.textContent = `Bono asignado: $${bono} MXN`;
+      resultado.style.color = "#2e7d32";
+
+      sonido.play(); // Reproduce el sonido si se asigna bono
+    }
+  </script>
+
+</body>
+</html>
+

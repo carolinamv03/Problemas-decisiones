@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cálculo de Bono</title>
+    <h1><center>Carolina Martinez </center></h1>
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #eef2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 25px;
+    color: #34495e;
+  }
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+  }
+  button {
+    background-color: #2980b9;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #1c5980;
+  }
+  #resultado {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #d0e6f7;
+    border-left: 6px solid #2980b9;
+    font-weight: 600;
+    color: #2c3e50;
+    min-height: 90px;
+    border-radius: 10px;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+  #resultado.error {
+    background-color: #f7d0d0;
+    border-left-color: #c0392b;
+    color: #7f1c1c;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cálculo de Bono</h1>
+
+    <label for="sueldo">Sueldo mensual ($ MXN):</label>
+    <input type="number" id="sueldo" min="0" placeholder="Ej: 1500" />
+
+    <label for="antiguedad">Antigüedad (años):</label>
+    <input type="number" id="antiguedad" min="0" placeholder="Ej: 3" />
+
+    <button onclick="calcularBono()">Calcular Bono</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function calcularBono() {
+      const sueldo = parseFloat(document.getElementById('sueldo').value);
+      const antiguedad = parseFloat(document.getElementById('antiguedad').value);
+      const resultado = document.getElementById('resultado');
+
+      // Validar entradas
+      if (isNaN(sueldo) || sueldo < 0) {
+        resultado.textContent = 'Por favor ingresa un sueldo válido (mayor o igual a 0).';
+        resultado.classList.add('error');
+        return;
+      }
+      if (isNaN(antiguedad) || antiguedad < 0) {
+        resultado.textContent = 'Por favor ingresa una antigüedad válida (mayor o igual a 0).';
+        resultado.classList.add('error');
+        return;
+      }
+
+      resultado.classList.remove('error');
+
+      // Calcular bono por antigüedad
+      let bonoAntiguedad = 0;
+      if (antiguedad > 2 && antiguedad < 5) {
+        bonoAntiguedad = sueldo * 0.20;
+      } else if (antiguedad >= 5) {
+        bonoAntiguedad = sueldo * 0.30;
+      }
+
+      // Calcular bono por sueldo
+      let bonoSueldo = 0;
+      if (sueldo < 1000) {
+        bonoSueldo = sueldo * 0.25;
+      } else if (sueldo <= 3500) {
+        bonoSueldo = sueldo * 0.15;
+      } else {
+        bonoSueldo = sueldo * 0.10;
+      }
+
+      // Determinar bono mayor
+      let bonoFinal = bonoAntiguedad > bonoSueldo ? bonoAntiguedad : bonoSueldo;
+
+      // Mostrar resultados
+      resultado.textContent =
+        `Bono por antigüedad: $${bonoAntiguedad.toFixed(2)} MXN\n` +
+        `Bono por sueldo: $${bonoSueldo.toFixed(2)} MXN\n` +
+        `\nBono asignado (mayor): $${bonoFinal.toFixed(2)} MXN`;
+    }
+  </script>
+</body>
+</html>

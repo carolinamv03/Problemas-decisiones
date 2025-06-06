@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¿Puede Votar?</title>
+  <h1><center>Carolina Martinez </center></h1>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #00796b;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      background-color: white;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .imagen {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .imagen img {
+      max-width: 100px;
+      transition: transform 0.5s;
+    }
+    h2 {
+      color: #00796b;
+      text-align: center;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e0f2f1;
+      border-left: 5px solid #00796b;
+      font-weight: bold;
+    }
+    pre {
+      background-color: #f1f1f1;
+      padding: 10px;
+      border-left: 4px solid #00796b;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>¿Puede Votar?</h1>
+    <p>Verifica si tienes edad suficiente para votar</p>
+  </header>
+
+  <div class="container">
+    <div class="imagen">
+      <img id="icono" src="https://cdn-icons-png.flaticon.com/512/4436/4436481.png" alt="Voto">
+    </div>
+
+    <label for="edad">Ingresa tu edad:</label>
+    <input type="number" id="edad" placeholder="Ej: 20" min="0">
+    <button onclick="verificarVoto()">Verificar</button>
+
+    <div id="resultado"></div>
+
+    <h3>🧠 Algoritmo, Pseudocódigo y Diagrama N/S</h3>
+    <pre>
+<!--
+Algoritmo:
+1. Leer edad
+2. Si edad >= 18 entonces:
+   - Puede votar
+   - Sino: No puede votar
+
+Pseudocódigo:
+Inicio
+  Leer edad
+  Si edad >= 18 Entonces
+    Escribir "Puede votar"
+  Sino
+    Escribir "No puede votar"
+  FinSi
+Fin
+
+Diagrama N/S:
++----------------------+
+|      Inicio          |
++----------------------+
+| Leer edad            |
++----------------------+
+| ¿edad >= 18?         |
++---------+------------+
+|  Sí     |    No      |
+| Escribir| Escribir   |
+| "Puede  | "No puede  |
+|  votar" |   votar"   |
++----------------------+
+|        Fin           |
++----------------------+
+-->
+    </pre>
+  </div>
+
+  <script>
+    function verificarVoto() {
+      const edad = parseInt(document.getElementById('edad').value);
+      const resultado = document.getElementById('resultado');
+      const icono = document.getElementById('icono');
+
+      if (isNaN(edad) || edad < 0) {
+        resultado.textContent = 'Por favor, ingresa una edad válida.';
+        resultado.style.backgroundColor = '#ffcdd2';
+        resultado.style.borderLeftColor = '#d32f2f';
+        return;
+      }
+
+      if (edad >= 18) {
+        resultado.textContent = '✅ Puedes votar en las próximas elecciones.';
+        icono.src = "https://cdn-icons-png.flaticon.com/512/4436/4436494.png";
+        icono.alt = "Apto para votar";
+      } else {
+        resultado.textContent = '❌ No puedes votar todavía.';
+        icono.src = "https://cdn-icons-png.flaticon.com/512/4436/4436510.png";
+        icono.alt = "No apto para votar";
+      }
+
+      resultado.style.backgroundColor = '#e0f2f1';
+      resultado.style.borderLeftColor = '#00796b';
+      icono.style.transform = 'scale(1.1)';
+    }
+  </script>
+</body>
+</html>

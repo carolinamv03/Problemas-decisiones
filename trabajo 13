@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Costo del Viaje Escolar</title>
+      <h1><center>Carolina Martinez </center></h1>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #a8edea, #fed6e3);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contenedor {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .contenedor img {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #7b1fa2;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 5px;
+      text-align: left;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #7b1fa2;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4a0072;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #4a0072;
+      min-height: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+    <img src="https://cdn-icons-png.flaticon.com/512/190/190678.png" alt="Autobús">
+    <h2>Viaje de Estudios</h2>
+
+    <label for="alumnos">Número de alumnos:</label>
+    <input type="number" id="alumnos" min="1" placeholder="Ej: 45" />
+
+    <button onclick="calcularCosto()">Calcular costo por alumno</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <audio id="sonido">
+    <source src="https://www.fesliyanstudios.com/play-mp3/438" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function calcularCosto() {
+      const alumnos = parseInt(document.getElementById("alumnos").value);
+      const resultado = document.getElementById("resultado");
+      const sonido = document.getElementById("sonido");
+
+      if (isNaN(alumnos) || alumnos <= 0) {
+        resultado.textContent = "Por favor, ingresa un número válido de alumnos.";
+        resultado.style.color = "red";
+        return;
+      }
+
+      let costo = 0;
+
+      if (alumnos > 100) {
+        costo = 20;
+      } else if (alumnos >= 50 && alumnos <= 100) {
+        costo = 35;
+      } else if (alumnos >= 20 && alumnos <= 49) {
+        costo = 40;
+      } else {
+        costo = 70;
+      }
+
+      resultado.style.color = "#4a0072";
+      resultado.textContent = `Costo por alumno: $${costo.toFixed(2)} MXN`;
+
+      sonido.play();
+    }
+  </script>
+</body>
+</html>

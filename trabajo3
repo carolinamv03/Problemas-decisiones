@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Regalo de San Valentín</title>
+  <h1><center>Carolina Martinez </center></h1>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fce4ec, #f8bbd0);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #d81b60;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      background-color: white;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .imagen {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .imagen img {
+      max-width: 100px;
+      transition: transform 0.5s;
+    }
+    h2 {
+      color: #d81b60;
+      text-align: center;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #d81b60;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ad1457;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fce4ec;
+      border-left: 5px solid #d81b60;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Regalo para San Valentín</h1>
+    <p>¿Qué puedes regalar según tu presupuesto?</p>
+  </header>
+
+  <div class="container">
+    <div class="imagen">
+      <img id="regalo" src="https://cdn-icons-png.flaticon.com/512/3649/3649469.png" alt="Regalo">
+    </div>
+
+    <label for="dinero">¿Cuánto puedes gastar? ($ MXN)</label>
+    <input type="number" id="dinero" placeholder="Ej: 120" min="0">
+    <button onclick="elegirRegalo()">Sugerir regalo</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function elegirRegalo() {
+      const dinero = parseFloat(document.getElementById("dinero").value);
+      const resultado = document.getElementById("resultado");
+      const imagen = document.getElementById("regalo");
+
+      if (isNaN(dinero) || dinero < 0) {
+        resultado.textContent = "Por favor, ingresa una cantidad válida.";
+        resultado.style.backgroundColor = "#ffcdd2";
+        resultado.style.borderLeftColor = "#d32f2f";
+        return;
+      }
+
+      let sugerencia = "";
+      let nuevaImagen = "";
+      if (dinero <= 10) {
+        sugerencia = "Puedes regalar una tarjeta ❤️";
+        nuevaImagen = "https://cdn-icons-png.flaticon.com/512/2583/2583131.png";
+      } else if (dinero <= 100) {
+        sugerencia = "Puedes regalar unos chocolates 🍫";
+        nuevaImagen = "https://cdn-icons-png.flaticon.com/512/3208/3208735.png";
+      } else if (dinero <= 250) {
+        sugerencia = "Puedes regalar flores 🌹";
+        nuevaImagen = "https://cdn-icons-png.flaticon.com/512/1005/1005141.png";
+      } else {
+        sugerencia = "¡Puedes regalar un anillo 💍!";
+        nuevaImagen = "https://cdn-icons-png.flaticon.com/512/938/938508.png";
+      }
+
+      resultado.textContent = sugerencia;
+      resultado.style.backgroundColor = "#fce4ec";
+      resultado.style.borderLeftColor = "#d81b60";
+      imagen.src = nuevaImagen;
+      imagen.alt = "Regalo sugerido";
+      imagen.style.transform = "scale(1.1)";
+    }
+  </script>
+</body>
+</html>

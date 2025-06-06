@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cobro Estacionamiento</title>
+    <h1><center>Carolina Martinez </center></h1>
+
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background: #212121;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #424242;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.5rem;
+    }
+    .container {
+      max-width: 480px;
+      background: #333;
+      margin: 40px auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .imagen {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .imagen img {
+      max-width: 120px;
+      transition: transform 0.5s;
+      filter: grayscale(80%);
+    }
+    h2 {
+      color: #ffb300;
+      text-align: center;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 10px;
+      background: #555;
+      color: white;
+      border: 1px solid #777;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #ffb300;
+      color: #212121;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #ffa000;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #424242;
+      border-left: 5px solid #ffb300;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>Estacionamiento "Rápido y Furioso"</header>
+
+  <div class="container">
+    <div class="imagen">
+      <img id="auto" src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" alt="Auto estacionado">
+    </div>
+
+    <label for="horas">Horas de uso:</label>
+    <input type="number" id="horas" min="1" placeholder="Ej: 7">
+
+    <button onclick="calcularCobro()">Calcular cobro</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function calcularCobro() {
+      const horas = parseInt(document.getElementById("horas").value);
+      const resultado = document.getElementById("resultado");
+      const auto = document.getElementById("auto");
+
+      if (isNaN(horas) || horas <= 0) {
+        resultado.textContent = "Ingrese una cantidad válida de horas.";
+        resultado.style.backgroundColor = "#d32f2f";
+        return;
+      }
+
+      let tarifa = 0;
+      if (horas <= 2) tarifa = 5;
+      else if (horas <= 5) tarifa = 4;
+      else if (horas <= 10) tarifa = 3;
+      else tarifa = 2;
+
+      const total = horas * tarifa;
+
+      resultado.textContent = `Total a pagar por ${horas} hora(s): $${total.toFixed(2)} MXN`;
+      resultado.style.backgroundColor = "#424242";
+      resultado.style.borderLeftColor = "#ffb300";
+
+      auto.src = "https://cdn-icons-png.flaticon.com/512/2972/2972199.png";
+      auto.alt = "Pago calculado";
+      auto.style.transform = "scale(1.1)";
+    }
+  </script>
+</body>
+</html>

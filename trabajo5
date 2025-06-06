@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Persona más joven</title>
+    <h1><center>Carolina Martinez </center></h1>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f1f8e9, #dcedc8);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #7cb342;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      background-color: white;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .imagen {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .imagen img {
+      max-width: 100px;
+    }
+    h2 {
+      color: #558b2f;
+      text-align: center;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #7cb342;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #558b2f;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f1f8e9;
+      border-left: 5px solid #7cb342;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Persona más joven</h1>
+    <p>Ingresa los datos de tres personas para encontrar la de menor edad</p>
+  </header>
+
+  <div class="container">
+    <div class="imagen">
+      <img src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" alt="Avatar joven">
+    </div>
+
+    <label for="nombre1">Nombre 1:</label>
+    <input type="text" id="nombre1">
+    <label for="edad1">Edad 1:</label>
+    <input type="number" id="edad1" min="0">
+
+    <label for="nombre2">Nombre 2:</label>
+    <input type="text" id="nombre2">
+    <label for="edad2">Edad 2:</label>
+    <input type="number" id="edad2" min="0">
+
+    <label for="nombre3">Nombre 3:</label>
+    <input type="text" id="nombre3">
+    <label for="edad3">Edad 3:</label>
+    <input type="number" id="edad3" min="0">
+
+    <button onclick="encontrarMenor()">Ver persona más joven</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function encontrarMenor() {
+      const nombres = [
+        document.getElementById("nombre1").value,
+        document.getElementById("nombre2").value,
+        document.getElementById("nombre3").value
+      ];
+      const edades = [
+        parseInt(document.getElementById("edad1").value),
+        parseInt(document.getElementById("edad2").value),
+        parseInt(document.getElementById("edad3").value)
+      ];
+      const resultado = document.getElementById("resultado");
+
+      if (nombres.some(n => n.trim() === "") || edades.some(e => isNaN(e) || e < 0)) {
+        resultado.textContent = "Por favor, ingresa todos los nombres y edades correctamente.";
+        resultado.style.backgroundColor = "#ffcdd2";
+        resultado.style.borderLeftColor = "#d32f2f";
+        return;
+      }
+
+      let menorEdad = edades[0];
+      let posicion = 0;
+
+      for (let i = 1; i < 3; i++) {
+        if (edades[i] < menorEdad) {
+          menorEdad = edades[i];
+          posicion = i;
+        }
+      }
+
+      resultado.style.backgroundColor = "#f1f8e9";
+      resultado.style.borderLeftColor = "#7cb342";
+      resultado.innerHTML = `La persona más joven es <strong>${nombres[posicion]}</strong> con <strong>${menorEdad}</strong> años.`;
+    }
+  </script>
+</body>
+</html>
